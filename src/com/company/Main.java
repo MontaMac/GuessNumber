@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -18,8 +19,8 @@ public class Main {
         boolean userLost = true;
 
         for (int i = 0; i < 10; i++) {
-            int userNum = scan.nextInt();
-            if (myNum > userNum) {
+            int userNum = askNum();
+            if (myNum > userNum){
                 System.out.println ("your number is less");
             } else if (myNum < userNum) {
                 System.out.println ("your number is bigger");
@@ -44,11 +45,30 @@ public class Main {
             answer = scan.next();
             if (!answer.equals ("y") && !answer.equals ("n")){
                 System.out.println("You can enter only y or n");
-                continue;
             } else{
-                break;
+                return answer;
             }
         } while (true);
-        return answer;
+
+    }
+
+    static int askNum(){
+       int answer;
+        do {
+            try {
+                answer = scan.nextInt();
+            }catch (InputMismatchException e) {
+                System.out.println ("This is not a number");
+                scan.next();
+                continue;
+            }
+
+            if (answer < 0 || answer > 100){
+                System.out.println("You can enter only numbers in range 0 to 100");
+            } else{
+                return answer;
+            }
+        } while (true);
+
     }
 }
