@@ -1,20 +1,24 @@
 package com.company;
 
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     static Random rand = new Random();
     static Scanner scan = new Scanner(System.in);
+    static List<GameResult> results = new ArrayList<>();
 
     public static void main(String[] args) {
         // write your code here
         String answer;
+
         do{
-        int myNum = rand.nextInt(100) + 1;
+            System.out.println("What is your name?");
+            String name = scan.next();
+
+            int myNum = rand.nextInt(100) + 1;
         System.out.println(myNum);
+        long t1 = System.currentTimeMillis();
 
         boolean userLost = true;
 
@@ -26,7 +30,15 @@ public class Main {
                 System.out.println ("your number is bigger");
             } else {
                 System.out.println ("bingo");
+                long t2 = System.currentTimeMillis();
+                long timePlayed = (t2 - t1)/1000;
+                System.out.println(timePlayed);
                 userLost = false;
+                GameResult r = new GameResult();
+                r.name = name;
+                r.triesCount = i;
+                r.timePlayed = timePlayed;
+                results.add(r);
                 break;
             }
         }
@@ -36,9 +48,19 @@ public class Main {
         System.out.println("Do you want to play again (y/n)?");
         answer = askYN();
     }while (answer.equals ("y"));
+
+        showResults();
+
         System.out.println("good bye");
 
     }
+
+    private static void showResults() {
+        for (GameResult r: results) {
+            System.out.println(r.name+"-->" + r.triesCount +"-->" + r.timePlayed );
+        }
+    }
+
     static String askYN(){
         String answer;
         do {
