@@ -90,7 +90,7 @@ public class Main<saveResults, testResuls> {
 
     private static void showResults() {
         for (GameResult r : results) {
-            System.out.printf("%s %d %d \n", r.name , r.triesCount , r.timePlayed);
+            System.out.printf("%s %d %d\n", r.name , r.triesCount , r.timePlayed);
         }
     }
 
